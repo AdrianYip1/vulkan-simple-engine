@@ -13,9 +13,18 @@ add_subdirectory(external/glfw)
 
 add_subdirectory(external/enginemath)
 
-add_executable(vulkanLearning src/main.cpp "src/tut_window.cpp" "src/first_app.cpp")
+add_executable(vulkanLearning src/main.cpp 
+"src/tut_window.cpp" 
+"src/first_app.cpp" 
+"src/tut_pipeline.cpp"
+"src/tut_device.cpp")
+
 target_link_libraries(vulkanLearning PRIVATE 
 	enginemath::enginemath
 	Vulkan::Vulkan
 	glfw)
+
+add_custom_command(TARGET vulkanLearning POST_BUILD
+    COMMAND ${CMAKE_COMMAND} -E copy_directory
+        "${CMAKE_SOURCE_DIR}/shaders" "$<TARGET_FILE_DIR:vulkanLearning>/shaders")
 

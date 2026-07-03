@@ -12,10 +12,11 @@ public:
 	~TutWindow();
 
 	TutWindow(const TutWindow&) = delete;
-	TutWindow* operator=(const TutWindow&) = delete;
+	TutWindow& operator=(const TutWindow&) = delete;
 
 	bool shouldClose() { return glfwWindowShouldClose(window); }
 
+	void createWindowSurface(VkInstance instance, VkSurfaceKHR* surface);
 private:
 	void initWindow();
 
