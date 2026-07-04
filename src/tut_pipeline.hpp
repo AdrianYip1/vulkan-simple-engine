@@ -6,7 +6,20 @@
 
 namespace tut {
 
-	struct PipelineConfigInfo {};
+	struct PipelineConfigInfo {
+		VkViewport viewport;
+		VkRect2D scissor;
+	
+		VkPipelineInputAssemblyStateCreateInfo inputAssemblyInfo;
+		VkPipelineRasterizationStateCreateInfo rasterizationInfo;
+		VkPipelineMultisampleStateCreateInfo mutisampleInfo;
+		VkPipelineColorBlendAttachmentState colorBlendAttachment;
+		VkPipelineColorBlendStateCreateInfo colorBlendInfo;
+		VkPipelineDepthStencilStateCreateInfo depthStencilInfo;
+		VkPipelineLayout pipelineLayout = nullptr;
+		VkRenderPass renderPass = nullptr;
+		uint32_t subpass = 0;
+	};
 
 	class TutPipeline {
 	public:
@@ -14,10 +27,12 @@ namespace tut {
 			const std::string& vertFilepath,
 			const std::string& fragFilepath,
 			const PipelineConfigInfo& configInfo);
-		~TutPipeline() {};
+		~TutPipeline();
 
 		TutPipeline(const TutPipeline&) = delete;
 		void operator=(const TutPipeline&) = delete;
+
+		void bind(VkCommandBuffer commandBuffer);
 
 		static PipelineConfigInfo defaultPipelineConfigInfo(uint32_t width, uint32_t height);
 

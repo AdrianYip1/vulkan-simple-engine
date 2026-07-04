@@ -17,7 +17,8 @@ add_executable(vulkanLearning src/main.cpp
 "src/tut_window.cpp" 
 "src/first_app.cpp" 
 "src/tut_pipeline.cpp"
-"src/tut_device.cpp")
+"src/tut_device.cpp"
+"src/tut_swap_chain.cpp")
 
 target_link_libraries(vulkanLearning PRIVATE 
 	enginemath::enginemath
