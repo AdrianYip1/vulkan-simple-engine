@@ -1,18 +1,13 @@
-#include "first_app.hpp"
-
-// std
-#include <cstdlib>
-#include <iostream>
-#include <stdexcept>
+#include "triangleApplication.hpp"
 
 int main() {
-	tut::FirstApp app{};
+	TriangleApplication app;
 
 	try {
 		app.run();
 	}
 	catch (const std::exception& e) {
-		std::cerr << e.what() << '\n';
+		std::cerr << e.what() << std::endl;
 		return EXIT_FAILURE;
 	}
 
