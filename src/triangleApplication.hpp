@@ -10,6 +10,9 @@
 #include <cstring>
 #include <optional>
 #include <set>
+#include <cstdint> 
+#include <limits> 
+#include <algorithm> 
 
 struct QueueFamilyIndices {
 	std::optional<uint32_t> graphicsFamily;
@@ -39,6 +42,11 @@ private:
 	VkQueue graphicsQueue;
 	VkQueue presentQueue;
 	VkSurfaceKHR surface;
+	VkSwapchainKHR swapChain;
+	std::vector<VkImage> swapChainImages;
+	VkFormat swapChainImageFormat;
+	VkExtent2D swapChainExtent;
+	std::vector<VkImageView> swapChainImageViews;
 
 	void initWindow();
 
@@ -73,6 +81,16 @@ private:
 	void createSurface();
 
 	SwapChainSupportDetails querySwapChainSupport(VkPhysicalDevice device);
+
+	VkSurfaceFormatKHR chooseSwapSurfaceFormat(const std::vector<VkSurfaceFormatKHR>& availableFormats);
+	
+	VkPresentModeKHR chooseSwapPresentMode(const std::vector<VkPresentModeKHR>& availablePresentModes);
+
+	VkExtent2D chooseSwapExtent(const VkSurfaceCapabilitiesKHR& capabilities);
+
+	void createSwapChain();
+
+	void createImageViews();
 
 	void mainLoop();
 
