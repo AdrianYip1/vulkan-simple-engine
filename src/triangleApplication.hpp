@@ -48,6 +48,12 @@ private:
 	VkFormat swapChainImageFormat;
 	VkExtent2D swapChainExtent;
 	std::vector<VkImageView> swapChainImageViews;
+	VkRenderPass renderPass;
+	VkPipelineLayout pipelineLayout;
+	VkPipeline graphicsPipeline;
+	std::vector<VkFramebuffer> swapChainFramebuffers;
+	VkCommandPool commandPool;
+	VkCommandBuffer commandBuffer;
 
 	void initWindow();
 
@@ -93,11 +99,21 @@ private:
 
 	void createImageViews();
 
+	void createRenderPass();
+
 	void createGraphicsPipeline();
+
+	void createFramebuffers();
 
 	static std::vector<char> readFile(const std::string& filename);
 
 	VkShaderModule createShaderModule(const std::vector<char>& code);
+
+	void createCommandPool();
+
+	void createCommandBuffer();
+
+	void recordCommandBuffer(VkCommandBuffer commandBuffer, uint32_t imageIndex);
 
 	void mainLoop();
 
