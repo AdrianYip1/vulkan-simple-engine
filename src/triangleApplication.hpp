@@ -15,9 +15,12 @@
 #include <algorithm> 
 #include <fstream>
 #include <array>
+#include <chrono>
 
 #include "enginemath/vec2.hpp"
 #include "enginemath/vec3.hpp"
+#include "enginemath/mat4.hpp"
+#include "enginemath/mathutils.hpp"
 
 struct Vertex {
 	enginemath::Vec2 pos;
@@ -57,6 +60,12 @@ struct QueueFamilyIndices {
 	}
 };
 
+struct UniformBufferObject {
+	enginemath::Mat4 model;
+	enginemath::Mat4 view;
+	enginemath::Mat4 proj;
+};
+
 struct SwapChainSupportDetails {
 	VkSurfaceCapabilitiesKHR capabilities;
 	std::vector<VkSurfaceFormatKHR> formats;
@@ -82,6 +91,7 @@ private:
 	VkExtent2D swapChainExtent;
 	std::vector<VkImageView> swapChainImageViews;
 	VkRenderPass renderPass;
+	VkDescriptorSetLayout descriptorSetLayout;
 	VkPipelineLayout pipelineLayout;
 	VkPipeline graphicsPipeline;
 	std::vector<VkFramebuffer> swapChainFramebuffers;
@@ -96,6 +106,11 @@ private:
 	VkDeviceMemory vertexBufferMemory;
 	VkBuffer indexBuffer;
 	VkDeviceMemory indexBufferMemory;
+	std::vector<VkBuffer> uniformBuffers;
+	std::vector<VkDeviceMemory> uniformBuffersMemory;
+	std::vector<void*> uniformBuffersMapped;
+	VkDescriptorPool descriptorPool;
+	std::vector<VkDescriptorSet> descriptorSets;
 
 	const std::vector<Vertex> vertices = {
 		{{-0.5f, -0.5f}, {1.0f, 0.0f, 0.0f}},
@@ -182,6 +197,8 @@ private:
 
 	void createIndexBuffer();
 
+	void createUniformBuffers();
+
 	uint32_t findMemoryType(uint32_t typeFilter, VkMemoryPropertyFlags properties);
 
 	void createBuffer(VkDeviceSize size, VkBufferUsageFlags usage, VkMemoryPropertyFlags properties,
@@ -189,6 +206,14 @@ private:
 
 	void copyBuffer(VkBuffer srcBuffer, VkBuffer dstBuffer, VkDeviceSize size);
 	
+	void createDescriptorSetLayout();
+
+	void updateUniformBuffer(uint32_t currentImage); 
+
+	void createDescriptorPool();
+
+	void createDescriptorSets();
+
 	void mainLoop();
 
 	void cleanup();
