@@ -1,4 +1,6 @@
 #pragma once
+#define STB_IMAGE_IMPLMENTATION
+#include <stb_image.h>
 
 #define GLFW_INCLUDE_VULKAN
 #include <GLFW/glfw3.h>
@@ -112,6 +114,9 @@ private:
 	VkDescriptorPool descriptorPool;
 	std::vector<VkDescriptorSet> descriptorSets;
 
+	VkImage textureImage;
+	VkDeviceMemory textureImageMemory;
+
 	const std::vector<Vertex> vertices = {
 		{{-0.5f, -0.5f}, {1.0f, 0.0f, 0.0f}},
 		{{0.5f, -0.5f}, {0.0f, 1.0f, 0.0f}},
@@ -213,6 +218,13 @@ private:
 	void createDescriptorPool();
 
 	void createDescriptorSets();
+
+	void createTextureImage();
+
+	void createImage(uint32_t width, uint32_t height, VkFormat format,
+				 	 VkImageTiling tiling, VkImageUsageFlags usage,
+					 VkMemoryPropertyFlags properties, VkImage& image,
+					 VkDeviceMemory& imageMemory);
 
 	void mainLoop();
 

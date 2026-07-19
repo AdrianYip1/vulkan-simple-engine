@@ -13,6 +13,9 @@ add_subdirectory(external/glfw)
 
 add_subdirectory(external/enginemath)
 
+add_library(stb INTERFACE)
+target_include_directories(stb INTERFACE ${CMAKE_CURRENT_SOURCE_DIR}/external/stb)
+
 add_executable(vulkanLearning
     src/main.cpp
     src/triangleApplication.cpp
@@ -21,7 +24,8 @@ add_executable(vulkanLearning
 target_link_libraries(vulkanLearning PRIVATE 
 	enginemath::enginemath
 	Vulkan::Vulkan
-	glfw)
+	glfw
+    stb)
 
 add_custom_command(TARGET vulkanLearning POST_BUILD
     COMMAND ${CMAKE_COMMAND} -E copy_directory
