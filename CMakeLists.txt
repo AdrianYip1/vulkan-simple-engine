@@ -31,3 +31,7 @@ add_custom_command(TARGET vulkanLearning POST_BUILD
     COMMAND ${CMAKE_COMMAND} -E copy_directory
         "${CMAKE_SOURCE_DIR}/shaders" "$<TARGET_FILE_DIR:vulkanLearning>/shaders")
 
+add_custom_command(TARGET vulkanLearning POST_BUILD
+    COMMAND ${CMAKE_COMMAND} -E copy_directory
+        "${CMAKE_SOURCE_DIR}/textures" "$<TARGET_FILE_DIR:vulkanLearning>/textures")
+
