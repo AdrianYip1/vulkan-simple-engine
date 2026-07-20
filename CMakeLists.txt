@@ -21,6 +21,8 @@ add_executable(vulkanLearning
     src/triangleApplication.cpp
     src/triangleApplication.hpp)
 
+target_compile_definitions(vulkanLearning PRIVATE ENGINEMATH_DEPTH_ZERO_TO_ONE)
+
 target_link_libraries(vulkanLearning PRIVATE 
 	enginemath::enginemath
 	Vulkan::Vulkan
